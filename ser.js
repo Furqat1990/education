@@ -1,51 +1,35 @@
-import moment from 'moment';
+// import moment from 'moment';
 
-// Start date of the period (YYYY-MM-DD format)
-let startDateStr = "2023-03-21";
-let startDate = new Date(startDateStr);
+let startDateStr = "2023-11-13";
 
-// Length of the period in months
-let lengthInMonths = 12;
+function createDateShedule(startDateStr, period) {
+    let startDate = new Date(startDateStr);
+    let d = 0;
+    let startDay = startDate.getDate();
+    let x = startDay;
+    let month;
+    let year;
+    let days;
+    
+    for (let i = 1; i <= period; i++) {
 
-// Array to hold the dates
-let days = [];
-let obj = {};
-let d = startDate.getDate();
-let nnn = [];
+        if (month > 11) {
+            startDate = new Date(`${++year}-01-01`);
+            d = 0;
+        }
 
-// Loop through the months and days and add each date to the array
-for (let i = 1; i <= lengthInMonths; i++) {
+        year = startDate.getFullYear();
+        month = startDate.getMonth() + ++d;
+        days = new Date(year, month, 0).getDate();
 
-    let year = startDate.getFullYear();
-    let month = startDate.getMonth() + i;
+        if (i === period) days = x;
 
-    if (i > 12) {
-        i = 1;
-        year += 1;
-        month = 1
+        for (let j = startDay; j <= days; j++) {
+            console.log(j, month, year);
+        }
+
+        startDay = 1;
     }
-
-    // Get the number of days in the current month
-    let daysInMonth = new Date(year, month, 0).getDate();
-    days = [];
-    obj = {};
-
-    // Loop through the days of the month and add each date to the array
-    for (let day = d; day <= daysInMonth; day++) {
-        let dateArr = moment(`${year}-${month}-${day}`).format('LLLL').replace(/,/g, '').split(' ');
-        days.push(dateArr[2]);
-        obj.month = dateArr[1];
-        obj.year = dateArr[3];
-    }
-
-    obj.days = days;
-    nnn.push(obj);
-
-    d = 1;
 }
 
-console.log(nnn);
-
-// dates.forEach(dat => {
-//     console.log(dat.getDate(), dat.toLocaleString('default', { month: 'long' }));
-// });
+createDateShedule(startDateStr, 8);

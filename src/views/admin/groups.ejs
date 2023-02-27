@@ -1,0 +1,11 @@
+<%- include('nav.ejs'); %>
+<div class="container">
+    <ul class="list-group">
+        <% group.forEach(gr => { %> 
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <a href="/course/<%= gr._id %>"><%= gr._id %></a>
+                <span class="badge badge-primary badge-pill"><%= gr.count %></span>
+            </li>
+        <% }) %>
+    </ul>
+</div>

@@ -1,0 +1,26 @@
+<%- include('nav.ejs'); %>
+
+<div class="container">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Payment</th>
+            <th scope="col">Extant</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% std.forEach((st, index) => { %>
+                <tr>
+                <th scope="row"><%= index + 1 %></th>
+                <td><%= st.name %></td>
+                <td><%= st.sure %></td>
+                <td><%= st.payment %></td>
+                <td><%= st.extant %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+      </table>
+</div>

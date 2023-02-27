@@ -1,0 +1,97 @@
+<%- include('nav.ejs'); %>
+
+    <div class="p-5 form-group container" style="width: 90rem;">
+        <form method="POST" class="" action="/add-students">
+
+            <!-- name and sure inputs -->
+            <table id="myTable" class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Ism</th>
+                        <th scope="col">Familiya</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td><input class="form-control" type="text" name="name1"></td>
+                        <td><input class="form-control" type="text" name="sure1"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <button type="button" class="btn btn-success" onclick="addInput()">+</button>
+            <button type="button" class="btn btn-danger" onclick="removeInput()">-</button>
+            <hr>
+
+            <!-- button -->
+            <button type="submit" class="btn btn-secondary">Send</button>
+            <hr>
+            <!-- input selection -->
+            <div class="form-row">
+                <div class="form-group col-md-2">
+                    <label for="day">Time</label>
+                    <select class="form-control" name="time" id="day" >
+                        <option value="am">am</option>
+                        <option value="pm">pm</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="day">Day</label>
+                    <select class="form-control" name="day" id="day" >
+                        <option value="odd">Odd</option>
+                        <option value="pair">Pair</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="day">Course</label>
+                    <select class="form-control" name="course" id="day" >
+                        <option value="programming">Programming</option>
+                        <option value="computer science">Computer science</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="day">Hour</label>
+                    <select class="form-control" name="hour" id="day" >
+                        <option value="09:00-10:30">09:00-10:30</option>
+                        <option value="11:00-13:00">11:00-12:30</option>
+                        <option value="14:00-15:30">14:00-15:30</option>
+                        <option value="15:30-17:00">15:30-17:00</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="day">Duration</label>
+                    <select class="form-control" name="duration" id="day" >
+                        <option value="2">2 month</option>
+                        <option value="7">7 month</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="day">Start time</label>
+                    <input type="date" name="start">
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        let table = document.getElementById('myTable');
+
+        function addInput() {
+            let row = table.insertRow();
+            let id = table.rows.length - 1;
+            let cell0 = row.insertCell();
+            let cell1 = row.insertCell();
+            let cell2 = row.insertCell();
+
+            cell0.innerHTML = id;
+            cell1.innerHTML = `<input class="form-control" type="text" name="name${id}">`;
+            cell2.innerHTML = `<input class="form-control" type="text" name="sure${id}">`;
+        }
+
+        function removeInput() {
+            let id = table.rows.length - 1;
+            if (id > 1) table.deleteRow(id);
+        }
+    </script>

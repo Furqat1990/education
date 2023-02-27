@@ -1,0 +1,43 @@
+<%- include('nav.ejs'); %>
+<style>
+    .attendance-table .table-wrapper {
+        overflow: auto;
+        max-height: 500px;
+        margin-left: 10px;
+        
+    }
+</style>
+
+<div class="attendance-table">
+    <div class="table-wrapper">
+        <% for (let j = 1; j <= 6; j++) { %>
+            <h1>Dekabr</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Last</th>
+                        <% for (let i = 1; i <= 31; i++) { %>
+                            <th style="min-width: 150px; text-align: center;"><%= i %>-12-2022</th>
+                        <% } %>
+                        <!-- Add more date columns as needed -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (let i = 0; i < names.length; i++) { %>
+                        <tr>
+                            <td style="min-width: 150px;"><%= names[i] %></td>
+                            <td style="min-width: 150px;"><%= names[i] %></td>
+                            <% for (let i = 1; i <= 31; i++) { %>
+                                <td style="min-width: 150px; text-align: center;"><input type="checkbox" name="attendance-alice-date-<%= i %>"></td>
+                            <% } %>
+                            <!-- Add more date cells as needed -->
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+            <hr style="border-width: 10px; width: 370%;"> 
+        <% } %>
+    </div>
+</div>
+

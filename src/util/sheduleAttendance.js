@@ -23,6 +23,7 @@ function createDatesShedule(startDateStr, week, period) {
     let dayArr = [];
     let attendanceObj = {};
     let attendanceArr = [];
+    let tempWeekDays = [];
 
     for (let i = 1; i <= period; i++) {
         if (month > 11) {
@@ -38,6 +39,7 @@ function createDatesShedule(startDateStr, week, period) {
         
         dayArr = [];
         attendanceObj = {};
+        tempWeekDays = [];
 
         for (let j = startDay; j <= days; j++) {
             let weekDay = new Date(year, month, j).getDay();
@@ -47,15 +49,18 @@ function createDatesShedule(startDateStr, week, period) {
             if (week === 'pair') {
                 if (weekDay % 2 === 0) {
                     dayArr.push(j);
+                    tempWeekDays.push(weekdays[weekDay]);
                 }
-            } else {
+            } else if (week === 'odd') {
                 if (weekDay % 2 === 1) {
                     dayArr.push(j);
+                    tempWeekDays.push(weekdays[weekDay]);
                 }
             }
         }
         attendanceObj.year = year;
         attendanceObj.month = nameMonth[month - 1];
+        attendanceObj.weeks = tempWeekDays;
         attendanceObj.days = dayArr;
        
         attendanceArr.push(attendanceObj);

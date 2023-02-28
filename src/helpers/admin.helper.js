@@ -56,13 +56,18 @@ class AdminHelper {
     }
 
     async attendace(req, res) {
-        let id = req.params.id;
-        let students = await Student.find({ group_id:id });
-        let extraInfo = await ExtraInfo.findById(id);
-        
-        console.log(students);
+        let extraInfo = await ExtraInfo.find();
 
-        res.render('admin/attendance.ejs', { title:"Attendance Page", req:"admin", names:[]});
+        res.render('admin/attendance', { title:"Students Page", req:"admin", extraInfo });
+    }
+
+    async attendanceList(req, res) {
+        let id = req.params.id;
+        let students = await Student.find({group_id:id});
+        let extraInf = await ExtraInfo.findById(id);
+        let periodCourse = createDatesShedule(extraInf.start, extraInf.day, extraInf.duration);
+
+        res.render('admin/attendanceList', { title:"Students Page", req:"admin", periodCourse, students });
     }
 }
 

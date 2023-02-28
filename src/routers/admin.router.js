@@ -11,5 +11,6 @@ router.get('/groups', adminController.groupsPage);
 router.get('/course/:name', adminController.coursesPage);
 router.get('/courses/:id', adminController.studentsPage);
 router.get('/attendance', adminController.attendacePage);
+router.get('/attendanceShedule/:id', adminController.attendace);
 
 export default router;

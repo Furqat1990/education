@@ -52,6 +52,14 @@ class Admin {
             res.status(500).send(error);
         }
     }
+
+    attendace(req, res) {
+        try {
+            AdminHelper.attendanceList(req, res);
+        } catch (error) {
+            res.status(500).send(error);
+        }
+    }
 }
 
 export default new Admin();

@@ -1,43 +1,29 @@
 <%- include('nav.ejs'); %>
-<style>
-    .attendance-table .table-wrapper {
-        overflow: auto;
-        max-height: 500px;
-        margin-left: 10px;
-        
-    }
-</style>
 
-<div class="attendance-table">
-    <div class="table-wrapper">
-        <% for (let j = 1; j <= 6; j++) { %>
-            <h1>Dekabr</h1>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Last</th>
-                        <% for (let i = 1; i <= 31; i++) { %>
-                            <th style="min-width: 150px; text-align: center;"><%= i %>-12-2022</th>
-                        <% } %>
-                        <!-- Add more date columns as needed -->
-                    </tr>
-                </thead>
-                <tbody>
-                    <% for (let i = 0; i < names.length; i++) { %>
-                        <tr>
-                            <td style="min-width: 150px;"><%= names[i] %></td>
-                            <td style="min-width: 150px;"><%= names[i] %></td>
-                            <% for (let i = 1; i <= 31; i++) { %>
-                                <td style="min-width: 150px; text-align: center;"><input type="checkbox" name="attendance-alice-date-<%= i %>"></td>
-                            <% } %>
-                            <!-- Add more date cells as needed -->
-                        </tr>
-                    <% } %>
-                </tbody>
-            </table>
-            <hr style="border-width: 10px; width: 370%;"> 
-        <% } %>
-    </div>
+<div class="container">
+    <h2>Attendance Table</h2>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Time</th>
+                <th>Day</th>
+                <th>Hour</th>
+                <th>Started time</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% extraInfo.forEach((e, index) => { %>
+                <tr>
+                    <td><%= index + 1 %></td>
+                    <td><a href="/attendanceShedule/<%= e._id %>"><b><%= e.course %></b></a></td>
+                    <td><%= e.time %></td>
+                    <td><%= e.day %></td>
+                    <td><%= e.hour %></td>
+                    <td><%= e.start.toDateString() %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
 </div>
-

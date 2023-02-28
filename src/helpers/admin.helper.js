@@ -1,5 +1,6 @@
 import Student from '../models/student.model.js';
-import ExtraInfo from '../models/extraInfo.model.js'
+import ExtraInfo from '../models/extraInfo.model.js';
+import { createDatesShedule } from '../util/sheduleAttendance.js'
 
 class AdminHelper {
     async add(req, res) {
@@ -24,7 +25,6 @@ class AdminHelper {
             });
 
             await student.save();
-            console.log(student);
         }                        
 
         res.redirect('/add');
@@ -50,14 +50,24 @@ class AdminHelper {
     async students(req, res) {
         let id = req.params.id;
         let std = await Student.find({ group_id:id });
-    
-        res.render('admin/students.ejs', { title:"Students Page", req:"admin", std});
+        let summa = calcSumPayment(std);
+
+        res.render('admin/students.ejs', { title:"Students Page", req:"admin", std, summa });
     }
 
     async attendace(req, res) {
-        let names = ['Arslon', 'Islom', 'Baxtiyor', 'Muhammad'];
-        res.render('admin/attendance.ejs', { title:"Attendance Page", req:"admin", names});
+        let id = req.params.id;
+        let students = await Student.find({ group_id:id });
+        let extraInfo = await ExtraInfo.findById(id);
+        
+        console.log(students);
+
+        res.render('admin/attendance.ejs', { title:"Attendance Page", req:"admin", names:[]});
     }
+}
+
+function calcSumPayment(std) {
+    return std.reduce((s, student) => s + student.payment, 0);
 }
 
 export default new AdminHelper();

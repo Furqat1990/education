@@ -1,4 +1,3 @@
-let startDateStr = "13-Mar-2023";
 let nameMonth = [
     'January',   'February',
     'March',     'April',
@@ -67,6 +66,4 @@ function createDatesShedule(startDateStr, week, period) {
     return attendanceArr;
 }
 
-let result = createDatesShedule(startDateStr, 'odd', 12);
-
-console.log(result);
+export { createDatesShedule };

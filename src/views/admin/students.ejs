@@ -8,7 +8,6 @@
             <th scope="col">First</th>
             <th scope="col">Last</th>
             <th scope="col">Payment</th>
-            <th scope="col">Extant</th>
           </tr>
         </thead>
         <tbody>
@@ -18,9 +17,11 @@
                 <td><%= st.name %></td>
                 <td><%= st.sure %></td>
                 <td><%= st.payment %></td>
-                <td><%= st.extant %></td>
                 </tr>
             <% }) %>
         </tbody>
       </table>
+      <hr>
+      <hr>
+      <h1 style="text-align: right;"><b>Summa:</b> <%= summa.toLocaleString() %> so'm</h1>
 </div>

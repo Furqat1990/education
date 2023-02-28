@@ -10,6 +10,9 @@ function createDateShedule(startDateStr, period) {
     let month;
     let year;
     let days;
+    let dayArr = [];
+    let attendanceObj = {};
+    let attendanceArr = [];
     
     for (let i = 1; i <= period; i++) {
         if (month > 11) {
@@ -22,13 +25,26 @@ function createDateShedule(startDateStr, period) {
         days = new Date(year, month, 0).getDate();
 
         if (i === period) days = residualDays;
+        
+        dayArr = [];
+        attendanceObj = {};
 
         for (let j = startDay; j <= days; j++) {
-            console.log(j, month, year);
+            dayArr.push(j);
         }
+
+        attendanceObj.days = dayArr;
+        attendanceObj.month = month;
+        attendanceObj.year = year;
+
+        attendanceArr.push(attendanceObj);
 
         startDay = 1;
     }
+
+    return attendanceArr;
 }
 
-createDateShedule(startDateStr, 8);
+let result = createDateShedule(startDateStr, 8);
+
+console.log(result);

@@ -6,69 +6,67 @@ let nameMonth = [
     'September', 'October',
     'November',  'December'
 ]
+
 let weekdays = [
-    'Monday', 'Tuesday', 
+    'Sunday', 'Monday', 'Tuesday', 
     'Wednesday', 'Thursday', 
-    'Friday', 'Saturday', 'Sunday'
+    'Friday', 'Saturday'
 ];
 
-function createDatesShedule(startDateStr, week, period) {
-    let startDate = new Date(startDateStr);
-    let d = 0;
-    let startDay = startDate.getDate();
-    let residualDays = startDay;
-    let month;
-    let year;
-    let days;
-    let dayArr = [];
-    let attendanceObj = {};
-    let attendanceArr = [];
-    let tempWeekDays = [];
+function getCourseWeekDays(startCourseDate, courseMonths, week) {
+    let convertToDate = new Date(startCourseDate);
+    let year = convertToDate.getFullYear();
+    let month = convertToDate.getMonth();
+    let day = convertToDate.getDate();
+    
+    let courseWeekDay;
+    
+    let courseShedule = [];
+    let tempDays = [];
+    let tempWeekNames = [];
 
-    for (let i = 1; i <= period; i++) {
-        if (month > 11) {
-            startDate = new Date(`${++year}-01-01`);
-            d = 0;
+    for (let i = 1; i <= courseMonths; i++) {
+        let courseDays = new Date(year, month + 1, 0).getDate();
+
+        tempDays = [];
+        tempWeekNames = [];
+
+        for (let j = day; j <= courseDays; j++) {
+            courseWeekDay = new Date(year, month, j).getDay();
+
+            if (courseWeekDay === 0) continue;
+
+            if (week === 'odd')
+                if (courseWeekDay % 2 === 1) {
+                    tempDays.push(j);
+                    tempWeekNames.push(weekdays[courseWeekDay]);                
+                }
+
+            if (week === 'pair')
+                if (courseWeekDay % 2 === 0) {
+                    tempDays.push(j);
+                    tempWeekNames.push(weekdays[courseWeekDay]);                
+                }
+
         }
 
-        year = startDate.getFullYear();
-        month = startDate.getMonth() + ++d;
-        days = new Date(year, month, 0).getDate();
+        courseShedule.push({
+            year,
+            month:nameMonth[month],
+            weeks:tempWeekNames,
+            days:tempDays
+        });
 
-        if (i === period) days = residualDays;
-        
-        dayArr = [];
-        attendanceObj = {};
-        tempWeekDays = [];
+        day = 1;
+        month++;
 
-        for (let j = startDay; j <= days; j++) {
-            let weekDay = new Date(year, month, j).getDay();
-
-            if (weekDay === 6) continue;
-
-            if (week === 'pair') {
-                if (weekDay % 2 === 0) {
-                    dayArr.push(j);
-                    tempWeekDays.push(weekdays[weekDay]);
-                }
-            } else if (week === 'odd') {
-                if (weekDay % 2 === 1) {
-                    dayArr.push(j);
-                    tempWeekDays.push(weekdays[weekDay]);
-                }
-            }
+        if (month > 11) { 
+            month = 0;
+            year++;
         }
-        attendanceObj.year = year;
-        attendanceObj.month = nameMonth[month - 1];
-        attendanceObj.weeks = tempWeekDays;
-        attendanceObj.days = dayArr;
-       
-        attendanceArr.push(attendanceObj);
-
-        startDay = 1;
     }
 
-    return attendanceArr;
+    return courseShedule;
 }
 
-export { createDatesShedule };
+export { getCourseWeekDays }; // ("2023-Jan-23", 17, 'odd');

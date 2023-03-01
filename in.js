@@ -1,4 +1,4 @@
-let startDateStr = "13-Mar-2023";
+let startDateStr = "2023-Mar-13";
 let nameMonth = [
     'January',   'February',
     'March',     'April',
@@ -9,76 +9,33 @@ let nameMonth = [
 ]
 
 let weekdays = [
-    'Monday', 'Tuesday', 
+    'Sunday', 'Monday', 'Tuesday', 
     'Wednesday', 'Thursday', 
-    'Friday', 'Saturday', 'Sunday'
+    'Friday', 'Saturday'
 ];
 
-// let weekdays = [
-//     'Thursday', 'Friday', 
-//     'Saturday', 'Sunday',
-//     'Monday', 'Tuesday', 
-//     'Wednesday'
-// ]
+function getCourseWeekDays(startCourseDate, courseMonths) {
+    let convertToDate = new Date(startCourseDate);
+    let year = convertToDate.getFullYear();
+    let month = convertToDate.getMonth();
+    let day = convertToDate.getDate();
 
-function createDatesShedule(startDateStr, week, period) {
-    let startDate = new Date(startDateStr);
-    let d = 0;
-    let residualDays = startDate.getDate();
-    let month;
-    let year;
-    let days;
-    let dayArr = [];
-    let attendanceObj = {};
-    let attendanceArr = [];
-    let tempWeekDays = [];
+    
 
-    for (let i = 1; i <= period; i++) {
-        if (month > 11) {
-            startDate = new Date(`${++year}-01-01`);
-            d = 0;
+    for (let i = 1; i <= courseMonths; i++) {
+        let courseDays = new Date(year, month + 1, 0).getDate();
+        month++;
+
+        if (month > 11) { 
+            month = 0;
+            year++;
         }
 
-        year = startDate.getFullYear();
-        month = startDate.getMonth() + ++d;
-        days = new Date(year, month, 0).getDate();
-
-        if (i === period) days = residualDays;
-        
-        dayArr = [];
-        attendanceObj = {};
-        tempWeekDays = [];
-
-        for (let j = residualDays; j <= days; j++) {
-            let weekDay = new Date(year, month, j).getDay();
-
-            if (weekDay === 6) continue;
-
-            if (week === 'pair') {
-                if (weekDay % 2 === 1) {
-                    dayArr.push(j);
-                    tempWeekDays.push(weekdays[weekDay]);
-                }
-            } else if (week === 'odd') {
-                if (weekDay % 2 === 0) {
-                    dayArr.push(j);
-                    tempWeekDays.push(weekdays[weekDay]);
-                }
-            }
+        for (let j = day; j <= courseDays; j++) {
+            console.log(new Date(year, month, j));
         }
-        attendanceObj.year = year;
-        attendanceObj.month = nameMonth[month - 1];
-        attendanceObj.weeks = tempWeekDays;
-        attendanceObj.days = dayArr;
-       
-        attendanceArr.push(attendanceObj);
-
-        residualDays = 1;
+        day = 1;
     }
-
-    return attendanceArr;
 }
 
-let result = createDatesShedule(startDateStr, 'odd', 12);
-
-console.log(result);
+getCourseWeekDays("2023-Mar-13", 17);

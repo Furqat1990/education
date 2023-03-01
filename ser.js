@@ -1,50 +1,11 @@
-// import moment from 'moment';
+const date = new Date(2023, 2, 29); // January is month 0
+const weekday = date.getDay(); // returns 2 for Tuesday
+const day = date.getDate();
 
-let startDateStr = "09-Feb-2023"; //"2023-11-13";
+const weekNames = [
+    'Yakshanba', 'Dushanba', 'Seshanba',
+    'Chorshanba', 'Payshanba', 'Juma',
+    'Shanba'
+]
 
-function createDateShedule(startDateStr, period) {
-    let startDate = new Date(startDateStr);
-    let d = 0;
-    let startDay = startDate.getDate();
-    let residualDays = startDay;
-    let month;
-    let year;
-    let days;
-    let dayArr = [];
-    let attendanceObj = {};
-    let attendanceArr = [];
-    
-    for (let i = 1; i <= period; i++) {
-        if (month > 11) {
-            startDate = new Date(`${++year}-01-01`);
-            d = 0;
-        }
-
-        year = startDate.getFullYear();
-        month = startDate.getMonth() + ++d;
-        days = new Date(year, month, 0).getDate();
-
-        if (i === period) days = residualDays;
-        
-        dayArr = [];
-        attendanceObj = {};
-
-        for (let j = startDay; j <= days; j++) {
-            dayArr.push(j);
-        }
-
-        attendanceObj.days = dayArr;
-        attendanceObj.month = month;
-        attendanceObj.year = year;
-
-        attendanceArr.push(attendanceObj);
-
-        startDay = 1;
-    }
-
-    return attendanceArr;
-}
-
-let result = createDateShedule(startDateStr, 8);
-
-console.log(result);
+console.log(day, weekNames[weekday]);

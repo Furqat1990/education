@@ -1,4 +1,3 @@
-let startDateStr = "2023-Mar-13";
 let nameMonth = [
     'January',   'February',
     'March',     'April',

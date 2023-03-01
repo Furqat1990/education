@@ -1,6 +1,6 @@
 import Student from '../models/student.model.js';
 import ExtraInfo from '../models/extraInfo.model.js';
-import { createDatesShedule } from '../util/sheduleAttendance.js'
+import { getCourseWeekDays } from '../util/sheduleAttendance.js'
 
 class AdminHelper {
     async add(req, res) {
@@ -65,7 +65,9 @@ class AdminHelper {
         let id = req.params.id;
         let students = await Student.find({group_id:id});
         let extraInf = await ExtraInfo.findById(id);
-        let periodCourse = createDatesShedule(extraInf.start, extraInf.day, extraInf.duration);
+        let periodCourse = getCourseWeekDays(extraInf.start, parseInt(extraInf.duration), extraInf.day );
+
+        console.log(periodCourse);
 
         res.render('admin/attendanceList', { title:"Students Page", req:"admin", periodCourse, students });
     }

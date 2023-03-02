@@ -261,3 +261,27 @@
 
 
 }());
+
+// AJAX
+const inp = document.querySelectorAll("input[data-id]");
+
+inp.forEach(tag => {
+    tag.addEventListener("click", () => {
+        let id = tag.getAttribute("data-id");
+        let day = tag.getAttribute("data-day");
+        let month = tag.getAttribute("data-month");
+		let extant = "true";
+
+        $.ajax({
+            url:"/checking_for_attendance",
+            method:"POST",
+            data: { id, day, month, extant },
+            dataType:"JSON",
+
+            success: function(data) {
+                const inp = document.querySelector(`input[data-id="${id}"]`);
+				inp.checked = true;
+            }
+        });
+    })
+});

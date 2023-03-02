@@ -60,6 +60,14 @@ class Admin {
             res.status(500).send(error);
         }
     }
+
+    doAttendance(req, res) {
+        try {
+            AdminHelper.doAttendance(req, res);
+        } catch (error) {
+            res.status(500).send(error);
+        }
+    }
 }
 
 export default new Admin();

@@ -12,5 +12,6 @@ router.get('/course/:name', adminController.coursesPage);
 router.get('/courses/:id', adminController.studentsPage);
 router.get('/attendance', adminController.attendacePage);
 router.get('/attendanceShedule/:id', adminController.attendace);
+router.post('/checking_for_attendance', adminController.doAttendance);
 
 export default router;
